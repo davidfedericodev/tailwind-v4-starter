@@ -4,177 +4,187 @@ Questa documentazione spiega come utilizzare lo script fornito per configurare a
 
 ---
 
-## 🏗️ **1. Installazione e Setup**
-### 📦 **Passaggi dello script di installazione**
-Lo script bash fornito automatizza i seguenti passaggi:
+## 🏗️ **1. Utilizzo dello Script di Setup**
 
-1. **Aggiornamento di npm:**
+### 🚀 **Come rendere lo script eseguibile**
+1. Salva lo script in un file, ad esempio `tailwind-starter.sh`.
+2. Rendi lo script eseguibile con il comando:
    ```bash
-   npm install -g npm@latest
+   chmod +x tailwind-starter.sh
    ```
-   ➡️ Assicura di avere la versione più recente di npm.
 
-2. **Installazione di Tailwind CSS:**
-   ```bash
-   npm install tailwindcss @tailwindcss/cli
-   ```
-   ➡️ Installa Tailwind CSS e la CLI ufficiale.
+### 🖥️ **Modalità di esecuzione**
+Lo script può essere eseguito in due modalità:
 
-3. **Creazione della struttura base del progetto:**
-   ```bash
-   mkdir src
-   touch src/index.html src/input.css
-   ```
-   ➡️ Crea la cartella `src` con i file `index.html` e `input.css`.
+#### 🔎 **1. Modalità interattiva (default)**
+Richiede conferma per ogni step del processo.
+```bash
+./tailwind-starter.sh
+```
+➡️ **Ideale** se vuoi controllare ogni passaggio manualmente.
 
-4. **Generazione e configurazione del file input.css:**
-   - Importa `tailwindcss`.
-   - Definisce un design system con variabili CSS personalizzate.
-
-5. **Generazione del file HTML di partenza:**
-   ```html
-   <h1 class="text-3xl font-bold underline">Hello world!</h1>
-   ```
-   ➡️ Permette di verificare subito la configurazione di Tailwind.
+#### ⚡ **2. Modalità automatica (senza conferme)**
+Esegue tutti i passaggi senza richiedere conferma.
+```bash
+./tailwind-starter.sh --no-confirm
+```
+➡️ **Ideale** per velocizzare il processo in ambienti di sviluppo ripetitivi.
 
 ---
 
-## 🎨 **2. Configurazione del Design System (`input.css`)**
-Il file `input.css` definisce un sistema di design personalizzato utilizzando variabili CSS. Tailwind genera automaticamente le utility class a partire da queste variabili.
+## 🗂️ **2. Struttura del progetto generata**
+Dopo l’esecuzione dello script, la struttura del progetto sarà la seguente:
 
-### 📑 **2.1 Token vs Variabili Primitive**
-🔔 **Nota importante:** Quando utilizzi i colori, devi sempre fare riferimento alle **variabili dei token** (es. `--color-text-primary`, `--color-bg-secondary`) e **non** alle variabili primitive (es. `--color-brand-500`, `--color-base-white`). 
+```
+├── package-lock.json   # File generato da npm per gestire le dipendenze esatte.
+├── package.json        # Contiene le dipendenze e gli script npm del progetto.
+└── src/                # Cartella principale dei file sorgente.
+    ├── index.html      # File HTML di esempio per testare le utility di Tailwind.
+    ├── input.css       # File di input contenente i token e la configurazione del design system.
+    └── output.css      # File CSS generato automaticamente da Tailwind.
+```
 
-➡️ Questo approccio rispecchia la modalità di utilizzo delle variabili su Figma e garantisce coerenza tra design e sviluppo. 
-
-✅ **Perché usare i token?**  
-- I token sono contestualizzati per finalità d’uso (testo, sfondo, bordi, ecc.).  
-- Sono mappati automaticamente per supportare modalità chiara (light) e scura (dark).  
-- Consentono una gestione centralizzata dei colori per un design system scalabile.  
+✅ **Spiegazione dei file:**
+- **package.json:** Gestisce le dipendenze e le versioni dei pacchetti installati.
+- **package-lock.json:** Blocca le versioni esatte dei pacchetti per coerenza tra ambienti.
+- **src/index.html:** Contiene un boilerplate per testare le utility di Tailwind CSS.
+- **src/input.css:** Include la definizione dei token e le variabili CSS per il design system.
+- **src/output.css:** File CSS finale generato da Tailwind in base a `input.css`.
 
 ---
 
-### 🗂️ **2.2 Struttura dei Token**
-I token sono suddivisi per finalità specifiche, rendendo chiaro e intuitivo il loro utilizzo:
+## 🎨 **3. Configurazione del Design System (`input.css`)**
+Il file `input.css` definisce un sistema di design personalizzato tramite variabili CSS. Queste variabili sono la base per generare automaticamente le utility class di Tailwind CSS.
 
-- 🎨 **Token per sfondi:** `--color-bg-primary`, `--color-bg-secondary`  
-- 📝 **Token per testi:** `--color-text-primary`, `--color-text-secondary`  
-- 🔲 **Token per bordi:** `--color-border-primary`, `--color-border-secondary`  
-- 🎛️ **Token per foreground (elementi in primo piano):** `--color-fg-primary`, `--color-fg-secondary`  
-- 🚫 **Token per stati (es. errori, avvisi, successi):** `--color-error-primary`, `--color-warning-primary`, `--color-success-primary`  
+### 📑 **3.1 Token vs Variabili Primitive**
+🔔 **Importante:** Utilizza sempre le **variabili dei token** (es. `--color-text-primary`, `--color-bg-secondary`) e **mai** le variabili primitive (es. `--color-brand-500`, `--color-base-white`). 
 
-✅ **Esempio di utilizzo:**
+➡️ Questo approccio garantisce coerenza tra design e sviluppo, rispecchiando le pratiche di utilizzo delle variabili su Figma.
+
+✅ **Perché usare i token?**
+- I token sono contestualizzati per finalità d’uso (testo, sfondo, bordi, ecc.).
+- Consentono un passaggio automatico tra modalità chiara e scura.
+- Offrono una gestione centralizzata per uno stile consistente e scalabile.
+
+---
+
+### 🗂️ **3.2 Suddivisione dei Token**
+I token sono organizzati in categorie per semplificare l’utilizzo e garantire la leggibilità:
+
+#### 🎨 **3.2.1 Token per sfondi**
+Gestiscono i colori di sfondo degli elementi.
+- `--color-bg-primary`
+- `--color-bg-secondary`
+- `--color-bg-brand-primary`
+
+💻 **Esempio:**
 ```html
-<!-- Uso corretto dei token -->
-<div class="bg-bg-primary text-text-primary p-md">Box con sfondo primario e testo primario</div>
-
-<!-- ❌ Evita questo approccio -->
-<div class="bg-brand-500">Uso diretto di variabile primitiva - NON consigliato</div>
+<div class="bg-bg-primary p-md">Sfondo primario</div>
 ```
 
 ---
 
-### 🌗 **2.3 Gestione Light e Dark Mode**
-I token sono configurati per essere in **modalità chiara di default**. Tuttavia, è possibile attivare la modalità scura aggiungendo l’attributo `data-theme="dark"` al `<body>`.
+#### 📝 **3.2.2 Token per testi**
+Gestiscono i colori del testo.
+- `--color-text-primary`
+- `--color-text-secondary`
+- `--color-text-brand-primary`
 
-✅ **Come funziona:**
-- In modalità predefinita (light), i token applicano i valori chiari.
-- Se `data-theme="dark"` è specificato, i token passano automaticamente ai valori scuri.
+💻 **Esempio:**
+```html
+<p class="text-text-primary">Testo con colore primario</p>
+```
 
-#### 💻 **Esempio pratico:**
+---
+
+#### 🔲 **3.2.3 Token per bordi**
+Gestiscono i colori dei bordi.
+- `--color-border-primary`
+- `--color-border-secondary`
+- `--color-border-brand`
+
+💻 **Esempio:**
+```html
+<div class="border border-border-primary p-sm">Box con bordo primario</div>
+```
+
+---
+
+#### 🎛️ **3.2.4 Token per foreground**
+Gestiscono il colore degli elementi in primo piano (es. icone, testi in overlay).
+- `--color-fg-primary`
+- `--color-fg-secondary`
+
+💻 **Esempio:**
+```html
+<svg class="fill-fg-primary">Icona foreground</svg>
+```
+
+---
+
+#### 🚦 **3.2.5 Token per stati (errori, avvisi, successi)**
+- `--color-error-primary`
+- `--color-warning-primary`
+- `--color-success-primary`
+
+💻 **Esempio:**
+```html
+<span class="text-error-primary">Messaggio di errore</span>
+```
+
+---
+
+### 🌗 **3.3 Gestione Light e Dark Mode**
+I token sono configurati per essere in **modalità chiara (light mode) di default**. Per attivare la modalità scura, aggiungi l’attributo `data-theme="dark"` al tag `<body>`.
+
+💻 **Esempio pratico:**
 ```html
 <body>
-  <div class="bg-bg-primary text-text-primary p-sm">Light mode attivo (default)</div>
+  <div class="bg-bg-primary text-text-primary">Light mode attivo</div>
 </body>
 
 <body data-theme="dark">
-  <div class="bg-bg-primary text-text-primary p-sm">Dark mode attivo</div>
+  <div class="bg-bg-primary text-text-primary">Dark mode attivo</div>
 </body>
 ```
-✅ **Vantaggio:** Non è necessario modificare le classi per gestire la modalità scura; è tutto automatico grazie ai token.
+
+✅ **Vantaggi:**
+- Non è necessario cambiare le classi CSS per la dark mode.
+- La gestione dei temi è centralizzata e reattiva.
 
 ---
 
-## 🖌️ **3. Utility Class Generate da Variabili**
-### 🖍️ **3.1 Colori**
-🔑 **Utility generate automaticamente dai token:**
-- `bg-nomeToken` → Cambia lo sfondo.  
-- `text-nomeToken` → Cambia il colore del testo.  
-- `border-nomeToken` → Cambia il colore dei bordi.  
-- `fg-nomeToken` → Cambia il colore degli elementi in primo piano.  
+## 🖥️ **4. Avvio e Watch Mode**
+Una volta completata la configurazione:
 
-#### 💻 **Esempio pratico:**
-```html
-<div class="bg-bg-secondary text-text-secondary p-md">
-  Box con sfondo secondario e testo secondario.
-</div>
-```
-
-### 🌈 **3.2 Gradienti Lineari**
-Le variabili gradienti sono definite come `--gradient-nomegradiente` e generano la classe `bg-linear-(nomegradiente)`.
-
-#### 💻 **Esempio pratico:**
-```html
-<div class="bg-linear-gradient-01 text-text-primary p-sm">
-  Sfondo con gradiente e testo primario.
-</div>
-```
-
-### 🌟 **3.3 Ombre (Shadows)**
-🔑 **Utility generata:** `shadow-nomeshadow`
-
-#### 💻 **Esempio pratico:**
-```html
-<button class="shadow-lg-01 p-sm">Pulsante con ombra personalizzata</button>
-```
-
-### 📝 **3.4 Tipografia (Font)**
-🔑 **Utility generata:** `font-nomefont`
-
-#### 💻 **Esempio pratico:**
-```html
-<p class="font-sans text-lg">Testo con font sans-serif personalizzato</p>
-```
-
-### 📏 **3.5 Spaziature (Spacing)**
-🔑 **Utility generate:**
-- Padding: `p-sm`, `p-md`, `p-lg`
-- Margin: `m-sm`, `m-md`, `m-lg`
-
-#### 💻 **Esempio pratico:**
-```html
-<div class="m-md p-lg">Box con margine medio e padding grande</div>
-```
-
----
-
-## 🚀 **4. Avvio del progetto**
-Dopo aver eseguito lo script, utilizza questo comando per avviare Tailwind in modalità watch:
+### ▶️ **Comando per avviare la modalità watch**
 ```bash
 npx @tailwindcss/cli -i ./src/input.css -o ./src/output.css --watch
 ```
-➡️ Monitora le modifiche al CSS e aggiorna `output.css` automaticamente.
+➡️ Monitora le modifiche al file `input.css` e aggiorna automaticamente `output.css`.
+
+✅ **Consiglio:** Mantieni questo comando attivo durante lo sviluppo per vedere le modifiche in tempo reale.
 
 ---
 
-## 🧭 **5. Best Practices e Suggerimenti**
+## 🧭 **5. Best Practices**
 - 📂 Organizza le variabili CSS per categoria (colori, spaziature, tipografia) per una migliore leggibilità.
-- 📝 Utilizza sempre i **token** per garantire coerenza con il design system di Figma.
-- 🌗 Gestisci la modalità scura con `data-theme="dark"` sul `<body>`, senza cambiare classi.
-- 🧩 Estendi i token solo se necessario per mantenere la scalabilità.
-- 🚫 **Nota:** Assicurati di importare `tailwindcss` prima di definire `@theme` per evitare errori di compilazione.
+- 📝 Utilizza sempre i **token** per mantenere la coerenza con il design system su Figma.
+- 🌗 Gestisci la dark mode tramite `data-theme="dark"` sul `<body>`, senza modificare le classi.
+- 🧩 Estendi i token solo se strettamente necessario per evitare ridondanze.
+- 🚫 **Evita l’uso diretto di variabili primitive** per prevenire incoerenze tra design e sviluppo.
 
 ---
 
 ## ⚠️ **6. Errori Comuni e Soluzioni**
 | Errore | Causa | Soluzione |
 |--------|--------|-----------|
-| `output.css` non generato | Comando `npx` non eseguito | Esegui `npx @tailwindcss/cli ...` |
-| Utility class non funzionanti | Uso di variabili primitive anziché token | Usa `--color-text-primary` invece di `--color-brand-500` |
-| Modalità scura non applicata | `data-theme="dark"` mancante sul `<body>` | Aggiungi l’attributo per abilitare la dark mode |
-| Gradienti non visibili | Nome classe errato | Usa `bg-linear-nomegradiente` |
+| `output.css` non generato | Comando `npx` non eseguito | Avvia `npx @tailwindcss/cli --watch` |
+| Classi non funzionanti | Uso di variabili primitive anziché token | Usa `--color-text-primary` anziché `--color-brand-500` |
+| Dark mode non attiva | Attributo `data-theme="dark"` mancante | Aggiungi `data-theme="dark"` al `<body>` |
+| Gradienti non visibili | Classe CSS errata | Usa `bg-linear-gradient-01` correttamente |
 
 ---
 
-✅ **Ora sei pronto per creare progetti con Tailwind CSS v4 e un design system personalizzato e conforme agli standard di Figma!** 🚀
+✅ **Se hai seguito correttamente la guida, sei pronto per lavorare con Tailwind CSS v4 e un design system solido e conforme agli standard di Figma!** 🚀
 
