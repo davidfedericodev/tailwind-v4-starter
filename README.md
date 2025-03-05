@@ -128,27 +128,12 @@ Gestiscono i colori dei bordi.
 💻 **Esempio:**
 
 ```html
-<div class="border border-border-primary p-sm">Box con bordo primario</div>
+<div class="border border-primary p-sm">Box con bordo primario</div>
 ```
 
 ---
 
-#### 🎛️ **3.2.4 Token per foreground**
-
-Gestiscono il colore degli elementi in primo piano (es. icone, testi in overlay).
-
-- `--color-fg-primary`
-- `--color-fg-secondary`
-
-💻 **Esempio:**
-
-```html
-<svg class="fill-fg-primary">Icona foreground</svg>
-```
-
----
-
-#### 🚦 **3.2.5 Token per stati (errori, avvisi, successi)**
+#### 🚦 **3.2.4 Token per stati (errori, avvisi, successi)**
 
 - `--color-error-primary`
 - `--color-warning-primary`
