@@ -93,7 +93,7 @@ if ask_confirmation "Vuoi aggiungere la configurazione al file 'input.css'? (Se 
 
 @import "tailwindcss";
 
-@theme inline {
+@theme {
   /***********************/
   /* Spacing */
   /***********************/
